@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Flower's Adventures</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f9f7f2;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #ff9fd7;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f4ff91;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #ffd6eb;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: #ff6bb5;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Story Sections */
+        .story-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .story-section {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .story-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .story-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-text {
+            padding: 30px;
+        }
+
+        .story-text h2 {
+            color: #ff6bb5;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .story-text p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .story-image img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #ff9fd7;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: #f4ff91;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            color: rgba(255, 255, 255, 0.8);
+            background-color: #ff85c6;
+            width: 100%;
+        }
+
+        .social-icons {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6bb5;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s, background-color 0.3s;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background-color: #ff85c6;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 0;
+                top: 70px;
+                background-color: #ff9fd7;
+                flex-direction: column;
+                width: 100%;
+                overflow: hidden;
+                transition: height 0.3s ease;
+            }
+
+            .nav-links.active {
+                height: 250px;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                padding: 15px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .story-content {
+                flex-direction: column;
+            }
+
+            .story-text, .story-image {
+                width: 100%;
+            }
+
+            .story-image {
+                height: 300px;
+            }
+
+            .footer-section {
+                flex: 100%;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        @media screen and (min-width: 769px) and (max-width: 991px) {
+            .story-content {
+                flex-direction: column;
+            }
+
+            .story-text, .story-image {
+                width: 100%;
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .story-content {
+                flex-direction: row;
+            }
+
+            .story-content:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+
+            .story-text, .story-image {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Little Flower</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#story">Story</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Little Flower's Adventures</h1>
+        <p>Join Little Flower on her journey of discovery, learning, and growth through everyday adventures.</p>
+    </section>
+
+    <!-- Story Sections -->
+    <div class="story-container" id="story">
+        <!-- Story 1 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>1. Little Flower and Her Garden</h2>
+                    <p>Little Flower wears her favorite pink T-shirt and blue shorts while taking care of the plants in her little garden. She always believes, with optimism, that plants will grow strong if she cares for them. She happily learns how to make her garden more beautiful while wearing her comfy sneakers and stepping through the soil.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image1 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower working in her garden">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>2. Little Flower's Friend</h2>
+                    <p>One day while playing, Little Flower meets a lost bird. Her optimism and kindness make her immediately decide to help the bird find its way home. Wearing a cute hairband and a simple T-shirt, she gently comforts the bird and leads it through the woods, helping it find its home.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image2 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower helping a lost bird">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>3. Learning Patience</h2>
+                    <p>Little Flower, in her round-neck T-shirt and shorts, plants a few seeds. She feels a bit impatient as the seeds don't sprout right away, but she learns to wait patiently and reminds herself that plants need time to grow, just like she does.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image3 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower learning patience while gardening">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>4. Discoveries on a Rainy Day</h2>
+                    <p>When the rain comes, Little Flower wears her cute rain hat and waterproof boots, exploring the rainy world with the little creatures. Her curiosity about nature grows as she appreciates the beauty of the rain, discovering more small creatures in the mud.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image4 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower exploring on a rainy day">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 5 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>5. Little Flower's Adventure</h2>
+                    <p>Wearing her comfy shorts and sneakers, Little Flower bravely steps out of her garden to begin an adventure. Her curiosity leads her to explore different places and discover new things. No matter what she encounters, she greets each challenge with enthusiasm.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image5 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower starting an adventure">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 6 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>6. Solving Problems</h2>
+                    <p>While playing, Little Flower notices that her toy got stuck. She doesn't panic but calmly thinks of a solution and successfully fixes it. In her light T-shirt and comfortable shoes, she demonstrates her wisdom and courage by solving this small problem.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image6 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower solving a problem with her toy">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 7 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>7. Sharing with Friends</h2>
+                    <p>Little Flower finds a special stone and decides to share it with her friends. Wearing her shorts and T-shirt, she holds the beautiful stone and enjoys it with her friends. Sharing makes her happy and teaches her the joy of mutual sharing.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image7 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower sharing with friends">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 8 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>8. Helping Family</h2>
+                    <p>Little Flower, wearing her sneakers and a cute scarf, helps her mom with household chores. She smiles while doing small tasks and learns the importance of sharing responsibilities and helping at home, feeling fulfilled by the teamwork.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image8 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower helping with chores">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 9 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>9. Happy to Be Home</h2>
+                    <p>After a day full of adventure, Little Flower, in her T-shirt and shorts, returns home. She feels very happy because she learned so many new things today and had a fulfilling day. Her sneakers step onto the familiar doorstep, and she feels warmth and happiness inside.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image9 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower returning home after adventures">
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 10 -->
+        <div class="story-section">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>10. Tomorrow Will Be Better</h2>
+                    <p>In her favorite pajamas, Little Flower lies in bed, looking forward to tomorrow's challenges. Her heart is full of hope, ready to continue her adventures and learning. Whether day or night, her optimism and curiosity will guide her in exploring the unknown world.</p>
+                </div>
+                <div class="story-image">
+                    <!-- Image placeholder for Image10 -->
+                    <img src="/api/placeholder/800/600" alt="Little Flower dreaming about tomorrow">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="hero" id="about" style="background-color: #d6ffea;">
+        <h1>About Little Flower</h1>
+        <p>Little Flower is a curious, kind, and brave little girl who loves nature and adventures. Through her daily experiences, she learns important life lessons about patience, sharing, problem-solving, and the beauty of discovery.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Little Flower</h3>
+                <p>A story about growth, discovery, and the joy of everyday adventures.</p>
+                <div class="social-icons">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <a href="#home">Home</a>
+                <a href="#story">Story</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@littleflower.com</p>
+                <p>Phone: +123 456 7890</p>
+                <p>Address: 123 Garden Street, Flowerland</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Little Flower's Adventures. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑</a>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on Scroll
+        function checkStories() {
+            const storyElements = document.querySelectorAll('.story-section');
+            const triggerPoint = window.innerHeight * 0.8;
+            
+            storyElements.forEach(story => {
+                const storyTop = story.getBoundingClientRect().top;
+                
+                if (storyTop < triggerPoint) {
+                    story.style.opacity = '1';
+                }
+            });
+        }
+
+        // Initial setup for story sections
+        const storyElements = document.querySelectorAll('.story-section');
+        storyElements.forEach(story => {
+            story.style.opacity = '0';
+            story.style.transition = 'opacity 0.5s ease';
+        });
+
+        // Check on load and scroll
+        window.addEventListener('load', checkStories);
+        window.addEventListener('scroll', checkStories);
+    </script>
+</body>
+</html>
